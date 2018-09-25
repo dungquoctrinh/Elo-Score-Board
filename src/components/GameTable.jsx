@@ -59,20 +59,20 @@ export const GameTable =  React.createClass({
                &larr; All Leagues
             </Link>
           }
-          <h4>
-            { leagueName ? leagueName + " League" : "All Leagues" }
+          <h4 className="headerText">
+            <span className="hide_sm">ELO RANKINGS - </span>{ leagueName ? leagueName.toUpperCase() + " LEAGUE" : "ALL LEAGUES" }
           </h4>
         </div>
 
         <table className={"elo-ranking-table table"}>
           <thead>
             <tr>
-              <th className="hide_sm">Rank</th>
+              <th className="hide_sm tr rankColumn">Rank</th>
               <th>Player</th>
-              <th className="hide_sm">League</th>
+              <th className="hide_sm tc">League</th>
               <th className="tc">Score</th>
-              <th className="tc">Streak</th>
-              <th className="tc">Wins</th>
+              <th className="tc">W / L</th>
+              <th className="hide_sm tc">Streak</th>
               { authed && <th></th> }
             </tr>
           </thead>
@@ -181,7 +181,10 @@ export const GameTable =  React.createClass({
   scoreGame(winnerScore, loserScore) {
     winnerScore = parseInt(winnerScore);
     loserScore = parseInt(loserScore);
-    const EloRank = Elo(24);
+
+    // This is where you pass in the k-factor (I think). Could do one for each player if
+    // they should have different k-factors based on points
+    const EloRank = new Elo(24);
 
     let expectedScoreWinner = EloRank.getExpected(winnerScore, loserScore);
     let expectedScoreLoser = EloRank.getExpected(loserScore, winnerScore);
