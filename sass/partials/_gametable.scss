@@ -1,3 +1,13 @@
+.EloApp {
+  min-width: 360px;
+}
+
+.headerText {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 30px;
+  line-height: 44px;
+}
+
 /* Table Overrides*/
 .table {
   @include small {
@@ -10,8 +20,6 @@
 .table > tbody > tr > td {
   vertical-align: middle;
   background-color: #fff;
-  // outline:1px solid orange;
-  padding:7px 1px;
 
   @include small() {
     font-size:13px;
@@ -20,12 +28,29 @@
 
 .table > thead > tr > th {
   font-weight:normal;
+
 }
 
 .img-thumbnail {
   margin-right: 5px;
   width:48px;
   height:48px;
+}
+
+.playerImgAndName {
+  display: flex;
+  align-items: center;
+}
+
+@include small {
+  .playerImgAndName {
+    display: block;
+  }
+
+  .playerImgAndName__name {
+    width: 48px;
+    text-align: center;
+  }
 }
 
 @include small {
@@ -103,8 +128,12 @@
   }
 }
 
-.playerRatio span::after{
-  content:"%";
+.rankColumn {
+  width: 30px;
+}
+
+.playerWinLoss span::after{
+  // content:"%";
   font-size:0.5em;
   opacity:0.5;
   vertical-align: middle;
@@ -115,6 +144,11 @@
 }
 
 .tc { text-align: center; }
+
+.tr { 
+  text-align: right; 
+  border-right: 1px solid #ddd;
+}
 
 .playerStreak--positive { @extend .text-success; }
 .playerStreak--negative { @extend .text-danger; }
