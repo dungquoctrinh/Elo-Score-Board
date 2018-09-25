@@ -34,39 +34,39 @@ export const Player = React.createClass({
 
     return (
       <tr className={ showAll ? '' : this.getOpacityClass(daysSince(lastPlayed)) }>
-        <td className="hide_sm">
+        <td className="hide_sm tr rankColumn">
           {rank}
         </td>
 
         <td>
           <Link to={`/league/${league}/player/${id}`}>
-            <img src={!!image ? image : '/img/avatar.jpg'} alt={name} className="img-circle img-thumbnail" />
-            {name}
+            <div className="playerImgAndName">
+              <img src={!!image ? image : '/img/avatar.jpg'} alt={name} className="img-circle img-thumbnail" />
+              <div className="playerImgAndName__name">{name}</div>
+            </div>
           </Link>
         </td>
 
-        <td className="hide_sm">
+        <td className="hide_sm tc">
           <Link to={`/league/${encodeURI(league)}`}>{league}</Link>
         </td>
 
         <td className="rangeDisplay playerScore tc">
-          <sup>{topScore}</sup>
+          {/* <sup>{topScore}</sup> */}
           <span className="displayVal">{score}</span>
-          <sub>{bottomScore}</sub>
+          {/* <sub>{bottomScore}</sub> */}
+        </td>
+        
+        <td className="playerWinLoss tc">
+          <span className="displayVal">{`${wins} / ${losses}`}</span>
         </td>
 
-        <td className={ "rangeDisplay playerStreak tc playerStreak--" + (streak && (streak > 0 ? "positive" : "negative" ))}>
-          <sup>{bestStreak ? "+" + bestStreak : ''}</sup>
+        <td className={ "hide_sm rangeDisplay playerStreak tc playerStreak--" + (streak && (streak > 0 ? "positive" : "negative" ))}>
+          {/* <sup>{bestStreak ? "+" + bestStreak : ''}</sup> */}
           <span className="displayVal">{streak ? (streak > 0 &&  '+') + streak : '-' }</span>
-          <sub>{worstStreak ? worstStreak : ''}</sub>
+          {/* <sub>{worstStreak ? worstStreak : ''}</sub> */}
         </td>
 
-        <td className="playerRatio tc">
-            { wins + losses > 9
-              ? <span className="displayVal">{ Math.round(wins / (wins + losses) * 100) || 0 }</span>
-              : '-'
-            }
-        </td>
         { authed &&
           <td className="text-right">
             { this.actionButtons() }
