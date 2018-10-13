@@ -1,5 +1,5 @@
 import React from 'react';
-import _u from '../../utils/utilities.js';
+import _u, { getInitials } from '../../utils/utilities.js';
 import { TableLine as CardLine } from './table-line';
 import { Avatar } from '../common/avatar';
 import { Link } from 'react-router'
@@ -7,13 +7,26 @@ import 'date-format-lite';
 
 import _time from 'vague-time';
 
+const getStreak = streak => {
+  if (streak > 0) {
+    if (streak === 1) {
+      return '1 win';
+    }
+    return `${streak} wins`;
+  } else if (streak < 0) {
+    if (streak === -1) {
+      return '1 loss';
+    }
+    return `${Math.abs(streak)} losses`;
+  }
+  return '-';
+};
+
 export const PlayerCard = React.createClass({
 
   render() {
     const { name, image, league, score, topScore, wins, losses,
-                id, bottomScore, streak, bestStreak, worstStreak, days, lastPlayed } = this.props;
-
-    let rootPath = window.location.pathname.replace(/\/(?:days\/[0-9]*)?\/?$/,'');
+                id, bottomScore, streak, bestStreak, worstStreak, lastPlayed } = this.props;
 
     return (
         <div className="PlayerCard panel panel-default">
@@ -21,31 +34,22 @@ export const PlayerCard = React.createClass({
             <thead>
               <tr>
                 <th colSpan="2">
-                  <div className="flex flex-between">
-                    <div>
-                      <Avatar src={image} /> {name}
-                    </div>
-                    <div className="dayLinks">
-                      <small>Days:</small>
-                      { [3, 7, 14, 30, 90, 365].map( (item) => {
-                          return (
-                            <Link key={item} to={[ rootPath, 'days', item].join('/')} className={item == days && 'active' }>
-                              {item}
-                            </Link>
-                          )
-                      })}
+                  <div className="flex flex-center">
+                    <div className="player-avatar-name">
+                      <Avatar src={image} initials={ getInitials(name) } className="jumbo"/>
+                      <div style={{ fontSize: '24px' }}>{name}</div>
                     </div>
                   </div>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <CardLine title='Rating' value={score} high={topScore} low={bottomScore} />
-              <CardLine title='Streak' value={streak} high={bestStreak} low={worstStreak} />
-              <CardLine title='Games' value={wins + losses} high={wins} low={losses} />
-              <CardLine title='Win Percent' value={_u.percentOfPlayerWins(wins, losses)} />
+              <CardLine title='Rating' value={score} className='hug-right' />
+              <CardLine title='Current Streak' value={getStreak(streak)} className='hug-right' />
+              <CardLine title='Record' value={`${wins} - ${losses}`} className='hug-right' />
+              <CardLine title='Win Percent' value={_u.percentOfPlayerWins(wins, losses)} className='hug-right' />
               { lastPlayed &&
-                  <CardLine title='Last Game' value={ _time.get({ to: lastPlayed }) } className='last-played' />
+                  <CardLine title='Last Game' value={ _time.get({ to: lastPlayed }) } className='last-played hug-right' />
               }
             </tbody>
           </table>
