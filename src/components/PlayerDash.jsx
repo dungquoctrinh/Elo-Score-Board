@@ -15,7 +15,7 @@ export const PlayerDash = React.createClass({
   getInitialState() {
     return {
       gameData: [],
-      days: this.props.params.days || 30,
+      days: this.props.params.days || 90,
       fetching: true
     }
   },
@@ -31,7 +31,7 @@ export const PlayerDash = React.createClass({
 
     if( days != newDays || playerId != newPlayerId ) {
       this.setState({
-        days: newDays || 30,
+        days: newDays || 90,
         gameData: [],
         fetching: true
       });
@@ -56,6 +56,8 @@ export const PlayerDash = React.createClass({
     let { gameData, days, fetching } = this.state;
     let playerId = params.playerId;
 
+    let rootPath = window.location.pathname.replace(/\/(?:days\/[0-9]*)?\/?$/,'');
+
     const player = this.playerById(playerId);
 
     return (
@@ -67,37 +69,57 @@ export const PlayerDash = React.createClass({
             &larr; Back <span className="hide_sm">to league</span>
           </Link>
           { player &&
-              <h4>{ `${ player.name } - ${ player.league } League` }</h4>
+              <h1 className="headerText"><span className="hide_sm">{ `${ player.name.toUpperCase() } - `}</span>{`${ player.league } League`.toUpperCase() }</h1>
           }
         </div>
 
-        <div className="col-md-3">
+        <div className="col-md-5">
+          <h2>Player Stats</h2>
           { player
             ? <PlayerCard {...player}  days={days} />
             : <p>{ fetching ? 'Loading Player Stats...' : 'Player not found.'} </p>
           }
-          <hr />
-          <h5>Recent Games</h5>
+          <h2>Recent Games</h2>
           { gameData.length && player
             ? <RecentGames games={gameData} player={player} playerById={this.playerById} number="5" />
             : <p>{ fetching ? 'Loading Graph...' : 'No games found.'} </p>
           }
         </div>
 
-        <div id="EloGraphWrapper" className="col-md-6">
-          <h5 className="sep">Elo Graph</h5>
+        <div className="col-md-1">
+        </div>
+
+        {/* <div id="EloGraphWrapper" className="col-md-3">
+          <h2 className="sep">Elo Graph</h2>
           { gameData.length
             ? <EloGraph graph={gameData} playerId={playerId} days={days} />
             : <p>{ fetching ? 'Loading Games...' : 'No games found.'} </p>
           }
-        </div>
+        </div> */}
 
-        <div className="col-md-3">
-          <h5 className="sep">Opponents</h5>
+        <div className="col-md-6">
+          
+
+
+          <h2>Performance Versus Specific Opponents</h2>
          { gameData.length && player
             ? <OpponentStats games={gameData} player={player} playerById={this.playerById} days={params.days} />
             : <p>{ fetching ? 'Loading Opponents...' : 'No games found.'} </p>
          }
+
+         <div className="dayLinks">
+            <div style={{ marginBottom: '5px',fontStyle: 'italic' }}>{`Showing Results for Last ${days} Days`}</div>
+            {/* <small></small> */}
+            <div style={{ marginBottom: '15px' }}>Select: 
+              { [3, 7, 14, 30, 90, 365].map( (item) => {
+                  return (
+                    <Link key={item} to={[ rootPath, 'days', item].join('/')} className={item == days && 'active' }>
+                      {item}
+                    </Link>
+                  )
+              })}
+            </div>
+          </div>
         </div>
 
       </div>
