@@ -2,8 +2,9 @@ import React from 'react';
 import { PlayButtons } from './play-buttons';
 import { EditButtons } from './edit-buttons';
 import { PlayerForm } from './player-form';
+import { Avatar } from '../common/avatar';
 import { Link } from 'react-router';
-import { daysSince } from '../../utils/utilities';
+import { daysSince, getInitials } from '../../utils/utilities';
 
 
 export const Player = React.createClass({
@@ -41,7 +42,7 @@ export const Player = React.createClass({
         <td>
           <Link to={`/league/${league}/player/${id}`}>
             <div className="playerImgAndName">
-              <img src={!!image ? image : '/img/avatar.jpg'} alt={name} className="img-circle img-thumbnail" />
+              <Avatar src={image} alt={name} initials={getInitials(name)} />
               <div className="playerImgAndName__name">{name}</div>
             </div>
           </Link>
@@ -58,7 +59,7 @@ export const Player = React.createClass({
         </td>
         
         <td className="playerWinLoss tc">
-          <span className="displayVal">{`${wins} / ${losses}`}</span>
+          <span className="displayVal">{`${wins} - ${losses}`}</span>
         </td>
 
         <td className={ "hide_sm rangeDisplay playerStreak tc playerStreak--" + (streak && (streak > 0 ? "positive" : "negative" ))}>
