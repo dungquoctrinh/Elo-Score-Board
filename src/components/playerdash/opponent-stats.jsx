@@ -2,10 +2,30 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Avatar } from '../common/avatar'
 
+import { getInitials } from '../../utils/utilities';
+
 import _groupBy from 'lodash.groupby';
 import _map from 'lodash.map';
 import _sortBy from 'lodash.sortby';
 import _compact from 'lodash.compact';
+
+const netPointsClass = netPoints => {
+  if (netPoints > 0) {
+    return 'points-winner';
+  } else if (netPoints < 0) {
+    return 'points-loser';
+  } else {
+    return '';
+  }
+};
+
+const netPointsSymbol = netPoints => {
+  if (netPoints > 0) {
+    return '+';
+  } else {
+    return '';
+  }
+}
 
 export const OpponentStats = React.createClass({
 
@@ -19,55 +39,50 @@ export const OpponentStats = React.createClass({
           <table className="OpponentStats table">
             <thead>
               <tr>
-                <th width="34%">Opponent</th>
-                <th width="33%" className="text-center">Games</th>
-                <th width="33%" className="text-center">Points</th>
+                <th width="34%" className="text-center">Opponent</th>
+                <th width="33%" className="text-center">Wins - Losses</th>
+                <th width="33%" className="text-center">Net Ranking Points</th>
               </tr>
             </thead>
             <tbody>
-            {  gamesByPlayer && gamesByPlayer.map( (opponent) => {
-                 return (
+            { gamesByPlayer && gamesByPlayer.map( (opponent) => {
+                const netPoints = opponent.games.pointsGiven - opponent.games.pointsTaken;
+                
+                  return (
                    <tr key={opponent.id}>
                      <td>
                         <Link to={`/league/${opponent.details.league}/player/${opponent.id}` + (days ? `/days/${days}` : '') }>
-                          <Avatar src={ opponent.details.image } />
-                          { opponent.details.name }
+                          <div className="player-avatar-name">
+                            <Avatar src={ opponent.details.image } alt={ opponent.details.name } initials={ getInitials(opponent.details.name) }/>
+                            <div>{ opponent.details.name }</div>
+                            </div>
                         </Link>
                      </td>
 
                      <td>
-                       <div className="os_metricGroup">
+                       {/* <div className="os_metricGroup">
                          <span className="os_fullMetric">
                            {opponent.games.count}
                          </span>
                          <div>
                            <span className="os_splitMetric">
-                             <Avatar className="img-tiny" src={ opponent.details.image } title={opponent.details.name} />
+                             <Avatar className="img-tiny" src={ opponent.details.image } title={opponent.details.name} initials={ getInitials(opponent.details.name) } />
                              <span className="os_splitMetric_value">{opponent.games.wins}</span>
                            </span>
                            <span className="os_splitMetric">
-                             <Avatar className="img-tiny" src={ player.image } title={player.name} />
+                             <Avatar className="img-tiny" src={ player.image } title={player.name} initials={ getInitials(player.name) } />
                              <span className="os_splitMetric_value">{opponent.games.losses}</span>
                            </span>
                          </div>
-                       </div>
+                       </div> */}
+                       <div className="h-to-h-record text-center">{`${opponent.games.losses} - ${opponent.games.wins}`}</div>
                     </td>
 
                     <td>
                       <div className="os_metricGroup">
-                        <span className="os_fullMetric">
-                          {opponent.games.pointsGiven - opponent.games.pointsTaken}
-                        </span>
-                        <div>
-                          <span className="os_splitMetric">
-                            <Avatar className="img-tiny" src={ opponent.details.image } title={opponent.details.name} />
-                            <span className="os_splitMetric_value">{opponent.games.pointsTaken}</span>
+                          <span className={`os_fullMetric ${netPointsClass(netPoints)}`}>
+                            {`${netPointsSymbol(netPoints)}${netPoints}`}
                           </span>
-                          <span className="os_splitMetric">
-                            <Avatar className="img-tiny" src={ player.image } title={player.name} />
-                            <span className="os_splitMetric_value">{opponent.games.pointsGiven}</span>
-                          </span>
-                        </div>
                       </div>
                     </td>
                    </tr>
