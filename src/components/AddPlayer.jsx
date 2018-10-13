@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Icon } from './common/icon';
 import { PlayerForm } from './gametable/player-form';
+import { Avatar } from './common/avatar';
+
+import { getInitials } from '../utils/utilities';
 
 export const AddPlayer = React.createClass({
 
@@ -31,7 +34,7 @@ export const AddPlayer = React.createClass({
            <Icon type="remove" />
             { this.state.playerAdded ? " Done" : " Cancel" }
           </Link>
-          <h4>Add New Player</h4>
+          <h1 className="headerText">ADD NEW PLAYER</h1>
         </div>
 
         { authed
@@ -45,7 +48,7 @@ export const AddPlayer = React.createClass({
 
               { player &&
                 <div className="alert border-success">
-                  <img src={!!player.image ? player.image : '/img/avatar.jpg'} className="img-circle img-thumbnail" />
+                  <Avatar src={player.image} alt={player.name} initials={getInitials(player.name)} />
                   {player.name} has been added to <Link to={`/league/${player.league}`}>{player.league} league</Link>.
                   <a className="alert-remove" onClick={() => this.setState({player:false})}><Icon type="remove" /></a>
                 </div>
@@ -53,7 +56,7 @@ export const AddPlayer = React.createClass({
 
               <PlayerForm submitCallback={this.addNewPlayer} method="add" leagues={leagues} league={league} />
             </div>
-          : <p>Yo gotta login essay.</p>
+          : <p>You must log in.</p>
         }
 
       </div>
