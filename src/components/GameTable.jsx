@@ -59,9 +59,9 @@ export const GameTable =  React.createClass({
                &larr; All Leagues
             </Link>
           }
-          <h4 className="headerText">
+          <h1 className="headerText">
             <span className="hide_sm">ELO RANKINGS - </span>{ leagueName ? leagueName.toUpperCase() + " LEAGUE" : "ALL LEAGUES" }
-          </h4>
+          </h1>
         </div>
 
         <table className={"elo-ranking-table table"}>
@@ -71,7 +71,7 @@ export const GameTable =  React.createClass({
               <th>Player</th>
               <th className="hide_sm tc">League</th>
               <th className="tc">Score</th>
-              <th className="tc">W / L</th>
+              <th className="tc">Record</th>
               <th className="hide_sm tc">Streak</th>
               { authed && <th></th> }
             </tr>
@@ -167,7 +167,7 @@ export const GameTable =  React.createClass({
         loserOldScore: loser.score
       }
 
-      if(confirm("So you're saying " + winner.name + " beat " + loser.name + "?")) {
+      if(confirm("Please confirm the result: " + winner.name + " defeated " + loser.name)) {
         this.firebase.updateResults(results);
         this.firebase.pushHistory(winner, history);
         this.firebase.pushHistory(loser, history);
