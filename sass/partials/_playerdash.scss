@@ -1,12 +1,28 @@
 .PlayerDash {
+  h2 {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .player-avatar-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .img-thumbnail {
-    width:40px;
-    height: 40px;
+    margin-right: 0;
     &.img-tiny {
       width:20px;
       height:20px;
       padding:1px;
       border-radius:70%;
+    }
+
+    &.jumbo {
+      width: 96px;
+      height: 96px;
+      border-radius: 48px;
     }
   }
 
@@ -25,6 +41,10 @@
 
 }
 
+.PlayerCard {
+  margin-bottom: 26px;
+}
+
 .last-played span { font-size:0.9em; }
 
 .flex {
@@ -34,9 +54,11 @@
 }
 .flex.flex-between { justify-content: space-between; }
 
+.flex.flex-center { justify-content: center; }
+
 .dayLinks {
   text-align:right;
-  font-size:0.8em;
+  // font-size:0.8em;
   vertical-align: middle;
   small { color:#919191; }
   a {
@@ -58,18 +80,32 @@
 
 
 .OpponentStats {
-  margin-top: 26px;
+  margin-top: 10px;
   table-layout: fixed;
 
   .img-thumbnail {
-    width:40px;
-    height: 40px;
     &.img-tiny {
       width:20px; min-width:20px;
       height:20px;
       padding:1px;
       border-radius:70%;
     }
+  }
+
+  .h-to-h-record {
+    font-size: 1.8em;
+  }
+
+  .points {
+    font-size: 1.8em;
+  }
+
+  .points-winner {
+    color: #59b400;
+  }
+
+  .points-loser {
+    color: #e50000;
   }
 }
 
@@ -82,11 +118,14 @@
 .os_fullMetric {
   text-align: center;
   display: inline-block;
-  border:1px solid #ddd;
-  margin-right: 5px;
+  // border:1px solid #ddd;
+  margin: 0 10px;
   // font-size:15px;
-  border-radius:50%;
+  // border-radius:50%;
   padding: 0;
+  font-size: 1.8em;
+  color: #59b400;
+  // color: white;
 
   width:2.4rem; min-width:2.4rem;
   height:2.4rem; min-height:2.4rem;
@@ -112,6 +151,7 @@
 
 
 .RecentGames {
+  margin-bottom: 26px;
   ul, li {
     padding:0;
     margin:0;
@@ -126,7 +166,7 @@
   .rg_date {
     font-size:0.7em;
     opacity: 0.7;
-    margin-bottom:0px;
+    margin-bottom:4px;
     display:flex;
     justify-content: space-between;
   }
@@ -137,6 +177,13 @@
     align-items:center;
     // font-size:0.8em;
   }
+
+  .rg_result {
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+  }
+
   .seperator {
     color: #ddd;
     font-size: 10px;
@@ -144,6 +191,18 @@
     padding: 0 8px;
     position: relative;
     top: -4px;
+  }
+
+  .points {
+    font-size: 1.6em;
+  }
+
+  .points-winner {
+    color: #59b400;
+  }
+
+  .points-loser {
+    color: #e50000;
   }
 }
 
