@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar } from '../common/avatar';
 import _compact from 'lodash.compact';
+import { getInitials } from '../../utils/utilities';
 
 export const RecentGames = React.createClass({
 
@@ -25,18 +26,16 @@ export const RecentGames = React.createClass({
                 </p>
 
                 <div className="rg_gameStats">
-                  <span>
-                    <Avatar src={player.image} className="img-tiny" /> {player.name}
-                    {(playerWon ? ' beat ' : ' lost to ')}
-                    { opponent.name } <Avatar src={opponent.image} className="img-tiny" />
-                  </span>
+                  <div className="rg_result">
+                    <div style={{width: '52px'}}>{(playerWon ? 'WIN over ' : 'LOSS to ')}</div>
+                    <Avatar src={opponent.image} className="img-tiny" initials={ getInitials(opponent.name) }/>{ opponent.name } 
+                  </div>
 
-                  <span>
-                    { playerWon ? winnerGain : loserLoss}
-                    <span className="seperator"> | </span>
-                    { playerWon ? loserLoss : winnerGain }
-                  </span>
-
+                  { playerWon ?
+                    <span style={{ paddingRight: '6px' }} className="points points-winner">{`+${winnerGain}`}</span>
+                    :
+                    <span style={{ paddingRight: '6px' }} className="points points-loser">{`${loserLoss}`}</span>
+                  }
                 </div>
               </li>
             ) : null
