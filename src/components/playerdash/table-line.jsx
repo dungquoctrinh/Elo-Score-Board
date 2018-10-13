@@ -10,7 +10,7 @@ export const TableLine = React.createClass({
     return (
       <tr>
         <td>{title}</td>
-        <td className={`rangeDisplay tc ${className}`}>
+        <td className={`rangeDisplay ${className}`}>
             { high && <sup>{high}</sup> }
               <span className="displayVal">{value}</span>
             { low && <sub>{low}</sub> }
