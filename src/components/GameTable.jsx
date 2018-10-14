@@ -81,7 +81,7 @@ export const GameTable =  React.createClass({
               return (
                 <Player {...player}
                   key={player.id}
-                  rank={index + 1}
+                  rank={`${index === 0 && leagueName ? '👑 ' : ''}${index + 1}`}
                   editMode={isEditMode}
                   showAll={_url.all}
                   onPlay={this.handleGamePlay}
