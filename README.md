@@ -44,3 +44,8 @@ Firebase Hosting docs can be [viewed here](https://firebase.google.com/docs/host
 ### ToDo ###
 * Improve Player & Game Stats View
 
+
+### Fix ###
+ReferenceError: internalBinding is not defined
+'sudo npm install natives@1.1.6'
+
