@@ -2,7 +2,7 @@ Elo ScoreBoard
 ====
 A simple scoreboard implementing the [Elo ranking system](https://en.wikipedia.org/wiki/Elo_rating_system) built with ReactJS & Firebase.
 
-Demo: [elotest.firebaseapp.com](https://elotest.firebaseapp.com/) login: elo123
+Demo: [https://chessmaster-b6bef.web.app](https://https://chessmaster-b6bef.web.app/) login: elo123
 
 ---
 
