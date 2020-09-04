@@ -30,7 +30,7 @@
     "lodash.trim": "^4.4.0",
     "lodash.uniq": "^4.3.0",
     "natives": "^1.1.6",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "react-google-charts": "^1.0.2",
