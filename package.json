@@ -50,7 +50,7 @@
     "gulp-uglify-es": "^1.0.4",
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.8",
-    "node-notifier": "^4.6.0",
+    "node-notifier": "^8.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
