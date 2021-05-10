@@ -19,7 +19,7 @@
     "fastclick": "^1.0.6",
     "firebase": "^3.1.0",
     "lodash.assign": "^4.0.9",
-    "lodash": ">=4.17.13",
+    "lodash": ">=4.17.21",
     "lodash.capitalize": "^4.1.1",
     "lodash.compact": "^3.0.1",
     "lodash.find": "^4.4.0",
